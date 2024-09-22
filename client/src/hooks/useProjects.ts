@@ -1,51 +1,57 @@
-import { UseMutationOptions } from "@tanstack/react-query";
-import { unauthed } from "../http";
+import { UseQueryOptions } from "@tanstack/react-query";
+import { authed } from "../http";
 
-export type LoginToken = {
-  token: string;
-  email: string;
-  first_name: string;
-  last_name: string;
+export type Project = {
+  id: number;
+  name: string;
+  description: string;
+  created_by: number;
+  created_at: string;
+  start_date: string;
+  end_date: string;
+  created_by_user: string;
+  latest_status: string;
 };
 
-type Login = {
-  email: string;
-  password: string;
+export type Task = {
+  id: number;
+  project_id: number;
+  name: string;
+  description: string | null;
+  assigned_to: number | null;
+  due_date: string | null;
+  created_by: number;
+  created_at: string;
+  created_by_user: string;
+  latest_status: string;
 };
 
-type SignUp = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-};
+const getProjects = () =>
+  authed.get<Project[]>("/api/projects").then(({ data }) => data);
 
-const doLogin = async (data: Login) =>
-  await unauthed
-    .post<{ token: string }>(`/api/users/login`, data)
+const getProjectById = (id: number) =>
+  authed
+    .get<Project & { tasks: Task[] }>(`/api/projects/${id}`)
     .then(({ data }) => data);
 
-const signUp = (data: SignUp) =>
-  unauthed.post(`/api/users`, data).then(({ data }) => data);
+const PROJECTS_QUERY_KEY = `/api/projects`;
+const PROJECTS_ID_QUERY_KEY = `/api/projects/:id`;
 
-export const useLogin = () => {
-  const signin: UseMutationOptions<
-    any,
-    Error,
-    {
-      email: string;
-      password: string;
-    }
-  > = {
-    mutationFn: doLogin,
+export const useProjects = () => {
+  const projectsQuery: UseQueryOptions<Project[]> = {
+    queryKey: [PROJECTS_QUERY_KEY],
+    queryFn: getProjects,
   };
 
-  const signup: UseMutationOptions<any, Error, SignUp> = {
-    mutationFn: (data) => signUp(data),
-  };
+  const projectsByIdQuery = (
+    id: number
+  ): UseQueryOptions<Project & { tasks: Task[] }> => ({
+    queryKey: [PROJECTS_ID_QUERY_KEY, id],
+    queryFn: () => getProjectById(id),
+  });
 
   return {
-    signin,
-    signup,
+    projectsQuery,
+    projectsByIdQuery,
   };
 };
