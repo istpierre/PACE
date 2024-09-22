@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "b135d229-c12b-438f-afa6-d11c678a1d00",
+		"name": "PACE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7142731"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Ian\",\r\n    \"last_name\": \"St. Pierre\",\r\n    \"email\": \"ipstpierre96@gmail.com\",\r\n    \"password\": \"foo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/users",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ipstpierre96@gmail.com\",\r\n    \"password\": \"foo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/users/login",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project By Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imlwc3RwaWVycmU5NkBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSWFuIiwibGFzdF9uYW1lIjoiU3QuIFBpZXJyZSIsImlhdCI6MTcyNzAxODMwMX0.Vbc4_zTbtE-JDjNVV9x0HJztc2_aBTxhLCpon7JDfG8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost/api/projects",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/projects",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/projects",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
